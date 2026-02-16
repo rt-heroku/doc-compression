@@ -1,0 +1,64 @@
+# Multi-Strategy Configuration
+# Example configurations for different content types
+
+compression:
+  # Strategy selection based on content
+  defaultStrategy: hierarchical-yaml
+
+  # Balanced compression
+  level: medium
+
+  # Comprehensive input patterns
+  input:
+    include:
+      # Documentation
+      - "docs/**/*.md"
+      - "*.md"
+
+      # Guides and tutorials
+      - "guides/**/*.md"
+      - "tutorials/**/*.md"
+
+      # Architecture docs
+      - "architecture/**/*.md"
+      - "design/**/*.md"
+
+      # API docs
+      - "api/**/*.md"
+
+    exclude:
+      - "**/node_modules/**"
+      - "**/dist/**"
+      - "**/.git/**"
+      - "**/vendor/**"
+
+    maxFileSizeMB: 15
+
+  # Full reporting
+  output:
+    format: yaml
+    includeMetadata: true
+    generateReport: true
+
+  # Moderate validation
+  validation:
+    minCoverage: 0.92   # 92% coverage
+    minFidelity: 0.95   # 95% fidelity
+    failOnLowQuality: false
+
+  # Strategy recommendations:
+  #
+  # For formula-heavy docs (math, algorithms):
+  #   defaultStrategy: dense-notation
+  #
+  # For architecture/relationship docs:
+  #   defaultStrategy: adjacency-lists
+  #
+  # For configuration/API reference:
+  #   defaultStrategy: table-compression
+  #
+  # For complex multi-level docs:
+  #   defaultStrategy: tiered-structure
+  #
+  # For mixed content:
+  #   defaultStrategy: hybrid

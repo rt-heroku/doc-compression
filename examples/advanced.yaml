@@ -1,0 +1,190 @@
+# Advanced Documentation Compression Configuration
+# For power users wanting maximum compression and fine-grained control
+
+compression:
+  # Use hybrid strategy with auto-detection
+  defaultStrategy: hybrid
+
+  # Aggressive compression for maximum reduction
+  level: aggressive
+
+  input:
+    include:
+      # Include all markdown files recursively
+      - "**/*.md"
+      # Include YAML documentation
+      - "**/*.yaml"
+      # Include specific documentation folders
+      - "docs/**/*"
+      - "documentation/**/*"
+
+    exclude:
+      # Standard excludes
+      - "**/node_modules/**"
+      - "**/dist/**"
+      - "**/build/**"
+      - "**/.git/**"
+      # Build artifacts
+      - "**/coverage/**"
+      - "**/.next/**"
+      - "**/.nuxt/**"
+      # Lock files and logs
+      - "**/package-lock.json"
+      - "**/yarn.lock"
+      - "**/*.log"
+
+    # Process larger files
+    maxFileSizeMB: 25
+
+  output:
+    format: yaml
+    includeMetadata: true
+    generateReport: true
+
+    # Custom filename with timestamp
+    filename: "KB-{projectName}-{timestamp}.yaml"
+
+    # Generate comparison with original
+    generateComparison: true
+
+    # Output directory
+    outputDir: "./compressed-docs"
+
+  validation:
+    # Stricter validation thresholds
+    minCoverage: 0.98   # 98%
+    minFidelity: 0.99   # 99%
+
+    # Generate detailed validation report
+    detailedReport: true
+
+    # Fail build if validation doesn't pass
+    failOnValidation: true
+
+# Advanced strategy configuration
+strategies:
+  hierarchical-yaml:
+    preserveCodeBlocks: true
+    preserveExamples: true
+    symbolsEnabled: true
+    maxDepth: 7
+
+    # Semantic clustering
+    semanticClustering:
+      enabled: true
+      minSimilarity: 0.7
+
+    # Procedural encoding
+    proceduralEncoding: true
+
+  dense-notation:
+    useUnicode: true
+    generateSymbolTable: true
+
+    # Custom symbol mappings
+    symbolMappings:
+      "Intelligence": "I"
+      "Instructions": "Inst"
+      "Tools": "T"
+      "Model": "M"
+
+    # Use subscripts for percentages
+    useSubscripts: true
+
+  adjacency-lists:
+    # Graph compression
+    graphCompression: true
+
+    # Relationship types to preserve
+    relationshipTypes:
+      - "enables"
+      - "requires"
+      - "composed_of"
+      - "prevents"
+      - "implements"
+
+    # Transitive reduction
+    transitiveReduction: true
+
+  table-compression:
+    abbreviateHeaders: true
+    useSymbols: true
+
+    # Minimum rows to convert to table
+    minRows: 3
+
+    # Use markdown pipes
+    useMarkdownPipes: true
+
+  tiered-structure:
+    # Generate all tiers
+    tiers: [1, 2, 3]
+
+    # Tier-specific compression levels
+    tierLevels:
+      1: "aggressive"   # Essential tier
+      2: "medium"       # Operational tier
+      3: "light"        # Complete tier
+
+    # Token budgets per tier (approximate)
+    tierBudgets:
+      1: 5000   # 5KB
+      2: 15000  # 15KB
+      3: 40000  # 40KB
+
+  hybrid:
+    autoDetect: true
+    switchThreshold: 0.7
+
+    # Strategy weights for auto-detection
+    strategyWeights:
+      hierarchical-yaml: 0.35
+      dense-notation: 0.25
+      adjacency-lists: 0.15
+      table-compression: 0.15
+      tiered-structure: 0.10
+
+    # Section-level strategy selection
+    sectionStrategy: true
+
+    # Metadata tracking per section
+    trackSectionMetadata: true
+
+# Performance optimization
+performance:
+  # Parallel processing for large projects
+  parallelProcessing: true
+
+  # Maximum concurrent files
+  maxConcurrency: 4
+
+  # Cache parsed files
+  enableCaching: true
+
+  # Cache directory
+  cacheDir: "./.doc-compression-cache"
+
+# Reporting
+reporting:
+  # Generate detailed HTML report
+  generateHtmlReport: true
+
+  # Include charts and visualizations
+  includeCharts: true
+
+  # Comparison with previous runs
+  trackHistory: true
+
+  # History file location
+  historyFile: "./compression-history.json"
+
+# Hooks (optional)
+hooks:
+  # Run before compression
+  beforeCompress: "npm run lint-docs"
+
+  # Run after compression
+  afterCompress: "npm run validate-kb"
+
+  # Run on validation failure
+  onValidationFailure: "npm run notify-team"

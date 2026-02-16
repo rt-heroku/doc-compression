@@ -1,0 +1,102 @@
+{
+  "name": "doc-compression",
+  "version": "1.0.0",
+  "description": "Documentation compression achieving 5-7x reduction with 95-99% fidelity",
+  "author": "Cerebro Team",
+  "tools": [
+    {
+      "name": "doc_compress_file",
+      "description": "Compress a single documentation file using specified strategy. Achieves 5-7x compression while maintaining 95-99% information fidelity. Supports multiple strategies: hierarchical-yaml (default, 6.6x), dense-notation (7x), adjacency-lists (6x), table-compression (5x), tiered-structure (3-8x), hybrid (7-8x).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Absolute path to the file to compress"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": ["hierarchical-yaml", "dense-notation", "adjacency-lists", "table-compression", "tiered-structure", "hybrid"],
+            "description": "Compression strategy to use (default: hierarchical-yaml)",
+            "default": "hierarchical-yaml"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["light", "medium", "aggressive"],
+            "description": "Compression intensity (default: medium)",
+            "default": "medium"
+          },
+          "outputPath": {
+            "type": "string",
+            "description": "Custom output path (optional, defaults to COMPRESSED-{filename}.yaml)"
+          }
+        },
+        "required": ["filePath"]
+      }
+    },
+    {
+      "name": "doc_compress_folder",
+      "description": "Compress all documentation files in a folder. Can combine multiple files into a single knowledge base or compress individually.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "folderPath": {
+            "type": "string",
+            "description": "Absolute path to the folder to compress"
+          },
+          "strategy": {
+            "type": "string",
+            "enum": ["hierarchical-yaml", "dense-notation", "adjacency-lists", "table-compression", "tiered-structure", "hybrid"],
+            "description": "Compression strategy to use",
+            "default": "hierarchical-yaml"
+          },
+          "recursive": {
+            "type": "boolean",
+            "description": "Recursively search subdirectories",
+            "default": true
+          },
+          "combineFiles": {
+            "type": "boolean",
+            "description": "Combine all files into single output",
+            "default": true
+          },
+          "includePattern": {
+            "type": "string",
+            "description": "Glob pattern for files to include (default: **/*.md)",
+            "default": "**/*.md"
+          },
+          "excludePattern": {
+            "type": "string",
+            "description": "Glob pattern for files to exclude",
+            "default": "**/node_modules/**"
+          }
+        },
+        "required": ["folderPath"]
+      }
+    },
+    {
+      "name": "doc_scan_compress",
+      "description": "Auto-scan project for documentation and compress with optimal strategy selection. Analyzes content to recommend best compression approach.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "projectPath": {
+            "type": "string",
+            "description": "Absolute path to the project root"
+          },
+          "autoDetectStrategy": {
+            "type": "boolean",
+            "description": "Automatically detect optimal strategy based on content",
+            "default": true
+          },
+          "generateReport": {
+            "type": "boolean",
+            "description": "Generate detailed compression report",
+            "default": true
+          }
+        },
+        "required": ["projectPath"]
+      }
+    }
+  ]
+}

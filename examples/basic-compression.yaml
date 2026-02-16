@@ -1,0 +1,35 @@
+# Basic Compression Configuration
+# Simple setup for general documentation compression
+
+compression:
+  # Strategy to use by default
+  defaultStrategy: hierarchical-yaml
+
+  # Compression level: light | medium | aggressive
+  level: medium
+
+  # Input file patterns
+  input:
+    include:
+      - "docs/**/*.md"
+      - "README.md"
+      - "*.md"
+    exclude:
+      - "**/node_modules/**"
+      - "**/dist/**"
+      - "**/.git/**"
+    maxFileSizeMB: 10
+
+  # Output configuration
+  output:
+    format: yaml
+    includeMetadata: true
+    generateReport: true
+    # Optional: custom filename template
+    # filenameTemplate: "KB-{projectName}-{timestamp}.yaml"
+
+  # Quality validation
+  validation:
+    minCoverage: 0.95   # 95% coverage required
+    minFidelity: 0.98   # 98% fidelity required
+    failOnLowQuality: false  # Don't fail if quality is low

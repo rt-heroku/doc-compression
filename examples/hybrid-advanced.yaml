@@ -1,0 +1,64 @@
+# Advanced Hybrid Compression Configuration
+# Intelligent multi-strategy compression with custom settings
+
+compression:
+  # Use hybrid strategy for automatic selection
+  defaultStrategy: hybrid
+
+  # Aggressive compression for maximum reduction
+  level: aggressive
+
+  # Input patterns
+  input:
+    include:
+      - "**/*.md"
+      - "**/*.markdown"
+      - "**/README*"
+      - "**/GUIDE*"
+      - "**/CHANGELOG*"
+    exclude:
+      - "**/node_modules/**"
+      - "**/dist/**"
+      - "**/build/**"
+      - "**/.git/**"
+      - "**/coverage/**"
+      - "**/test/**"
+    maxFileSizeMB: 20
+
+  # Output settings
+  output:
+    format: yaml
+    includeMetadata: true
+    generateReport: true
+    filenameTemplate: "LLM-KB-{projectName}-v{version}.yaml"
+
+  # Strict validation
+  validation:
+    minCoverage: 0.98   # 98% coverage required
+    minFidelity: 0.99   # 99% fidelity required
+    failOnLowQuality: true  # Fail if quality doesn't meet thresholds
+
+  # Strategy-specific settings
+  strategies:
+    # Hybrid strategy configuration
+    hybrid:
+      autoDetect: true
+      strategyWeights:
+        hierarchical-yaml: 0.4
+        dense-notation: 0.3
+        table-compression: 0.2
+        adjacency-lists: 0.1
+
+    # Dense notation settings
+    denseNotation:
+      maxSymbols: 100
+      customSymbols:
+        # Add domain-specific symbols
+        Architecture: "Λ"
+        Configuration: "Ξ"
+        Implementation: "Ψ"
+
+    # Tiered structure settings
+    tieredStructure:
+      tiers: 3
+      tierWeights: [0.8, 0.5, 0.3]  # Compression per tier

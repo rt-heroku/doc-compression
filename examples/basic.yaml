@@ -1,0 +1,92 @@
+# Basic Documentation Compression Configuration
+# Place this file as `doc-compression.config.yaml` in your project root
+
+compression:
+  # Default strategy to use
+  # Options: hierarchical-yaml, dense-notation, adjacency-lists, table-compression, tiered-structure, hybrid
+  defaultStrategy: hierarchical-yaml
+
+  # Compression intensity
+  # Options: light (3-4x), medium (5-6x), aggressive (7-8x)
+  level: medium
+
+  # Input file patterns
+  input:
+    # Files to include (glob patterns)
+    include:
+      - "docs/**/*.md"
+      - "README.md"
+      - "*.md"
+
+    # Files to exclude (glob patterns)
+    exclude:
+      - "**/node_modules/**"
+      - "**/dist/**"
+      - "**/.git/**"
+      - "**/build/**"
+
+    # Maximum file size to process (in MB)
+    maxFileSizeMB: 10
+
+  # Output configuration
+  output:
+    # Output format
+    # Options: yaml, json, markdown
+    format: yaml
+
+    # Include metadata section in output
+    includeMetadata: true
+
+    # Generate compression report
+    generateReport: true
+
+    # Output filename (supports variables: {projectName}, {timestamp})
+    filename: "LLM-KNOWLEDGE-BASE.yaml"
+
+  # Validation thresholds
+  validation:
+    # Minimum coverage percentage (0.0 to 1.0)
+    minCoverage: 0.95  # 95%
+
+    # Minimum fidelity percentage (0.0 to 1.0)
+    minFidelity: 0.98  # 98%
+
+# Optional: Strategy-specific settings
+strategies:
+  hierarchical-yaml:
+    # Preserve code blocks
+    preserveCodeBlocks: true
+
+    # Preserve examples
+    preserveExamples: true
+
+    # Enable symbolic notation
+    symbolsEnabled: true
+
+    # Maximum nesting depth
+    maxDepth: 5
+
+  dense-notation:
+    # Use Unicode mathematical symbols
+    useUnicode: true
+
+    # Generate symbol table
+    generateSymbolTable: true
+
+  table-compression:
+    # Abbreviate headers
+    abbreviateHeaders: true
+
+    # Use symbols in tables
+    useSymbols: false
+
+  tiered-structure:
+    # Generate all 3 tiers or specific tiers only
+    tiers: [1, 2, 3]  # Essential, Operational, Complete
+
+  hybrid:
+    # Enable auto-detection
+    autoDetect: true
+
+    # Threshold for strategy switching (0.0 to 1.0)
+    switchThreshold: 0.7
