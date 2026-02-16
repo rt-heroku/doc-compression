@@ -8,8 +8,24 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "jest",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
   },
+  "files": [
+    "dist/",
+    "examples/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rt-heroku/doc-compression.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rt-heroku/doc-compression/issues"
+  },
+  "homepage": "https://github.com/rt-heroku/doc-compression#readme",
   "keywords": [
     "documentation",
     "compression",

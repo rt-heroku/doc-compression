@@ -1,0 +1,36 @@
+# Source files (dist/ is what gets published)
+src/
+tsconfig.json
+
+# Claude Code plugin-specific files
+plugin.json
+skills/
+test-plugin.js
+
+# Extra documentation (README.md is comprehensive)
+USER-GUIDE.md
+USAGE-GUIDE.md
+SETUP-GUIDE.md
+QUICK_START.md
+INSTALL.md
+STATUS.md
+
+# Development files
+.gitignore
+.vscode/
+.idea/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+tests/
+*.test.js
+*.spec.js
+
+# Git
+.git/
+.gitattributes
