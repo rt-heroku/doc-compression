@@ -1,0 +1,8 @@
+{
+  "name": "doc-compression",
+  "version": "2.0.0",
+  "description": "Compress project documentation into token-efficient YAML knowledge bases. Claude performs semantic compression; a deterministic CLI handles token counting, lossless cleanup, and verification.",
+  "author": {
+    "name": "Cerebro Team"
+  }
+}

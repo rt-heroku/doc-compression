@@ -1,19 +1,30 @@
 {
   "name": "@cerebro/doc-compression",
-  "version": "1.0.0",
-  "description": "Documentation compression plugin achieving 5-7x reduction with high fidelity",
+  "version": "2.0.0",
+  "description": "Deterministic toolkit for LLM documentation compression: token counting, lossless cleanup, and structural verification. Semantic compression is performed by Claude via the bundled Claude Code plugin skill.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "doc-compress": "dist/cli.js"
+  },
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "jest",
-    "dev": "tsc --watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/tests"
+    ]
   },
   "files": [
     "dist/",
-    "examples/",
+    ".claude-plugin/",
+    "commands/",
+    "skills/",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
@@ -31,22 +42,23 @@
     "compression",
     "claude-code",
     "plugin",
-    "knowledge-base"
+    "knowledge-base",
+    "tokens",
+    "llm"
   ],
   "author": "Cerebro Team",
   "license": "MIT",
   "dependencies": {
-    "yaml": "^2.3.4",
-    "markdown-it": "^14.0.0",
     "glob": "^10.3.10",
-    "zod": "^3.22.4"
+    "gpt-tokenizer": "^3.4.0",
+    "yaml": "^2.3.4"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20.10.6",
-    "@types/markdown-it": "^13.0.7",
     "jest": "^29.7.0",
-    "@types/jest": "^29.5.11"
+    "ts-jest": "^29.4.11",
+    "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18.0.0"

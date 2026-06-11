@@ -5,6 +5,44 @@ All notable changes to the Documentation Compression Plugin will be documented i
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-06-11
+
+### Complete architecture rewrite
+
+v1's deterministic regex "compression" corrupted code blocks, deleted phrases
+("in order to" was removed, not replaced), substituted logic symbols into
+prose, silently lost entire sections on duplicate headings across files, and
+often *expanded* small documents. Its validators were never invoked by any
+tool, and the plugin targeted a Claude Code plugin API that does not exist,
+so none of it was reachable from Claude Code. v2 inverts the design: Claude
+performs the semantic compression via a skill; deterministic code does the
+measurable parts (tokens, lossless cleanup, verification).
+
+### Added
+- Real Claude Code plugin structure: `.claude-plugin/plugin.json`,
+  `commands/compress-docs.md`, `commands/kb.md`
+- `compressing-docs` skill: Claude performs semantic compression under hard
+  rules (code verbatim, facts preserved, per-file namespacing, declared
+  omissions) with mandatory CLI verification
+- `loading-knowledge-base` skill: selective KB section loading with
+  provenance and staleness checks
+- `doc-compress` CLI: `scan`, `clean` (lossless only), `tokens`, `verify`
+- Token-based measurement throughout (gpt-tokenizer BPE) — bytes are
+  supplementary
+- Honest structural verification: heading coverage, byte-identical code
+  preservation, numeric fact retention, measured token ratio; fails loudly;
+  intentional drops must be declared in `META.omissions`
+- Jest test suite (21 tests) including regressions for every v1 data-loss bug
+- `bin` entry for standalone CLI use
+
+### Removed
+- All six regex "compression strategies" and the symbol/abbreviation
+  substitution tables (lossy, token-inefficient, meaning-corrupting)
+- Self-grading fidelity/coverage validators (circular methodology)
+- Invented plugin API (`api.tools.register`), root `plugin.json` tool schemas
+- Unreachable YAML config system, `examples/`, six overlapping guide documents
+- Unverifiable benchmark claims ("5-7x", "100% fidelity") from documentation
+
 ## [1.0.0] - 2026-02-15
 
 ### 🎉 Production Ready Release
